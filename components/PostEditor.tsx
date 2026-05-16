@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
+import WritingTimer from "@/components/WritingTimer";
 import type { Post } from "@/lib/types";
 
 function slugify(text: string) {
@@ -61,6 +62,7 @@ export default function PostEditor({ post }: { post?: Post }) {
 
   return (
     <div className="space-y-4">
+      <WritingTimer />
       <input
         type="text"
         placeholder="Title"
