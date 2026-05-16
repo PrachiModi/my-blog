@@ -21,7 +21,7 @@ export default async function PostPage({
   if (!post) notFound();
 
   return (
-    <article>
+    <article className="max-w-2xl mx-auto">
       <time className="text-xs text-gray-400 uppercase tracking-wide">
         {new Date(post.created_at).toLocaleDateString("en-US", {
           year: "numeric",

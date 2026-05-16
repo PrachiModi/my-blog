@@ -5,10 +5,17 @@ import { revalidatePath } from "next/cache";
 
 export async function saveGoal({ title, end_date }: { title: string; end_date: string }) {
   const supabase = await createClient();
+  const { data } = await supabase
+    .from("goals")
+    .insert({ title, end_date })
+    .select()
+    .single();
+  revalidatePath("/admin");
+  return data;
+}
 
-  // Always keep only one goal — delete existing and insert new
-  await supabase.from("goals").delete().neq("id", "00000000-0000-0000-0000-000000000000");
-  await supabase.from("goals").insert({ title, end_date });
-
+export async function deleteGoal(id: string) {
+  const supabase = await createClient();
+  await supabase.from("goals").delete().eq("id", id);
   revalidatePath("/admin");
 }

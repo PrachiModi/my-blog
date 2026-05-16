@@ -6,15 +6,12 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const { data: goals } = await supabase
     .from("goals")
     .select("*")
-    .order("created_at", { ascending: false })
-    .limit(1);
-
-  const goal = goals?.[0] ?? null;
+    .order("created_at", { ascending: true });
 
   return (
-    <div className="flex gap-6 items-start">
-      <aside className="w-56 flex-shrink-0 sticky top-24 space-y-4">
-        <GoalWidget goal={goal} />
+    <div className="flex gap-8 items-start">
+      <aside className="w-48 flex-shrink-0 sticky top-24">
+        <GoalWidget initialGoals={goals ?? []} />
       </aside>
       <div className="flex-1 min-w-0">{children}</div>
     </div>
